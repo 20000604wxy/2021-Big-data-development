@@ -1,0 +1,21 @@
+按月查看总体销售额、新增注册人数
+select count(user_id) from users
+inner join
+select sum(amount) from orders
+on left(register_time,7)=left(orders_time,7)
+group by left(register_time,7)
+
+按月查看城市的销售额
+select orders.amount,users.city from users,orders
+where orders.user_id=users.user_id
+group by left(orders_time,7)
+
+按月查看城市、商品类别的销售额
+select amount,city,category from orders,users,product
+where product.product_id=orders.product_id,users.user_id=orders.order_id
+group by left(orders_time,7)
+
+按月查看性别、商品类别的销售额
+select amount,sex,category from orders,users,product
+where product.product_id=orders.product_id,users.user_id=orders.order_id
+group by left(orders_time,7)
